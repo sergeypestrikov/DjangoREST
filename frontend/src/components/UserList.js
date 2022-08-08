@@ -8,10 +8,10 @@ const UserItem = ({user}) => {
                 {user.username}
             </td>
             <td>
-                {user.first_name}
+                {user.name}
             </td>
             <td>
-                {user.last_name}
+                {user.option}
             </td>
             <td>
                 {user.email}
@@ -27,10 +27,10 @@ const UserList = ({users}) => {
                 username
             </th>
             <th>
-                first_name
+                name
             </th>
             <th>
-                last_name
+                option
             </th>
             <th>
                 email
