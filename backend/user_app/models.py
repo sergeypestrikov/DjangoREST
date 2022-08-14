@@ -8,6 +8,9 @@ class User(AbstractBaseUser):
     option = models.CharField(max_length=64)
     email = models.EmailField(unique=True)
 
+    def __str__(self):
+        return f'{self.name}'
+
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
