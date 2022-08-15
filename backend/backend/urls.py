@@ -17,14 +17,19 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from user_app.views import UserModelViewSet
-from TODO_app.views import ProjectModelViewSet, TaskModelViewSet
+from TODO_app.views import *
 
 router = DefaultRouter()
-router.register('users', UserModelViewSet),
+router.register('users', UserModelViewSet)
 router.register('projects', ProjectModelViewSet)
 router.register('tasks', TaskModelViewSet)
+router.register('projects', ProjectModelLimitedViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    path('project_get', project_get),
+    path('project_api_get', project_api_get),
+    path('project_api_get_class', ProjectApiView.as_view()),
+    path('project_api_get_list', ProjectListAPIView.as_view())
 ]
