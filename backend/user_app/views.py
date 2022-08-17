@@ -14,7 +14,7 @@ from django.shortcuts import render
 
 
 class UserLimitOffsetPagination(LimitOffsetPagination):
-    default_limit = 2
+    default_limit = 10
 
 
 class UserModelViewSet(ModelViewSet):

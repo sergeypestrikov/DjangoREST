@@ -62,6 +62,7 @@ class ProjectApiView(APIView):
         serializer = ProjectModelSerializer(projects, many=True)
         return Response(serializer.data)
 
+
 class ProjectListAPIView(ListAPIView):
     renderer_classes = [JSONRenderer]
     serializer_class = ProjectModelSerializer
