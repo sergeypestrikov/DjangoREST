@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'user_app',
     'TODO_app'
@@ -92,6 +94,7 @@ DATABASES = {
     }
 }
 
+from rest_framework.authentication import SessionAuthentication, BaseAuthentication, TokenAuthentication
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERERS_CLASSES': [
@@ -99,7 +102,13 @@ REST_FRAMEWORK = {
         #'rest_framework.renderers.BrowsableAPIRenderer'
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 100
+    'PAGE_SIZE': 100,
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
+    ]
 }
 
 if DEBUG:

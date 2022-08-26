@@ -7,10 +7,23 @@ from rest_framework.viewsets import ModelViewSet
 from .models import User
 from .serializer import UserModelSerializer
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly, IsAdminUser, BasePermission, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly
 from rest_framework.views import APIView
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.decorators import api_view, renderer_classes, action
 from django.shortcuts import render
+
+
+class CustomPermission(BasePermission):
+
+    def has_permission(self, request, view):
+        return request.user and request.user.username == 'sergey'
+
+    def has_object_permission(self, request, view, obj):
+        return super().has_object_permission(request, view, obj)
+
+    # def has_permission(self, request, view):
+    #     return request.user and request.user.name == 'sergey'
 
 
 class UserLimitOffsetPagination(LimitOffsetPagination):
@@ -19,6 +32,8 @@ class UserLimitOffsetPagination(LimitOffsetPagination):
 
 class UserModelViewSet(ModelViewSet):
     pagination_class = UserLimitOffsetPagination
+    #permission_classes = [IsAuthenticated]
+    permission_classes = [DjangoModelPermissions]
     serializer_class = UserModelSerializer
     queryset = User.objects.all()
 

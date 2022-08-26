@@ -74,7 +74,7 @@ class App extends React.Component {
                     </nav>
                     <Routes>
                         <Route exact path='/' element={<Navigate to='/users' />} />
-                        <Route exact path='/projects' element={<ProjectList projects={this.state.projects} />} />
+                        <Route exact path='/projects' element={<ProjectList projects={this.state.projects} users={this.state.users} />} />
                         <Route exact path='/tasks' element={<TaskList tasks={this.state.tasks} />} />
                         <Route path='/users' >
                             <Route index element={<UserList users={this.state.users} />} />

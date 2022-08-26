@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, UserManager
+from rest_framework.authtoken.models import Token
 
 
 class User(AbstractBaseUser):
