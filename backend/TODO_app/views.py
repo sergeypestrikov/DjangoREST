@@ -9,7 +9,8 @@ from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from .models import Project, Task
 from .serializer import ProjectModelSerializer, TaskModelSerializer
 from rest_framework.views import APIView
-from rest_framework.generics import GenericAPIView, ListAPIView, RetrieveAPIView
+from rest_framework.generics import GenericAPIView, ListAPIView, RetrieveAPIView, get_object_or_404
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly, IsAdminUser, BasePermission, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly
 from django.shortcuts import render
 
 
