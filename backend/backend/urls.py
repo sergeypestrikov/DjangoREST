@@ -20,6 +20,7 @@ from rest_framework.authtoken import views
 from user_app.views import UserModelViewSet
 from TODO_app.views import *
 
+
 router = DefaultRouter()
 router.register('users', UserModelViewSet)
 router.register('projects', ProjectModelViewSet)
