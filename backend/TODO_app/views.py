@@ -19,7 +19,7 @@ class ProjectLimitOffsetPagination(LimitOffsetPagination):
 
 
 class ProjectModelViewSet(ModelViewSet):
-    pagination_class = ProjectLimitOffsetPagination
+   # pagination_class = ProjectLimitOffsetPagination
     serializer_class = ProjectModelSerializer
     queryset = Project.objects.all()
 
@@ -35,12 +35,12 @@ class ProjectModelViewSet(ModelViewSet):
         return Project.objects.all()
 
 
-class TaskLimitOffsetPagination(LimitOffsetPagination):
-    default_limit = 20
+# class TaskLimitOffsetPagination(LimitOffsetPagination):
+#     default_limit = 20
 
 
 class TaskModelViewSet(ModelViewSet):
-    pagination_class = TaskLimitOffsetPagination
+  #  pagination_class = TaskLimitOffsetPagination
     serializer_class = TaskModelSerializer
     queryset = Task.objects.all()
 

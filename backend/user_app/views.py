@@ -26,12 +26,12 @@ class CustomPermission(BasePermission):
     #     return request.user and request.user.name == 'sergey'
 
 
-class UserLimitOffsetPagination(LimitOffsetPagination):
-    default_limit = 10
+# class UserLimitOffsetPagination(LimitOffsetPagination):
+#     default_limit = 10
 
 
 class UserModelViewSet(ModelViewSet):
-    pagination_class = UserLimitOffsetPagination
+    # pagination_class = UserLimitOffsetPagination
     #permission_classes = [IsAuthenticated]
     permission_classes = [DjangoModelPermissions]
     serializer_class = UserModelSerializer
