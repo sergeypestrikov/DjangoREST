@@ -8,6 +8,8 @@ class User(AbstractBaseUser):
     name = models.CharField(max_length=64)
     add_info = models.CharField(max_length=64)
     email = models.EmailField(unique=True)
+    is_staff = False
+    is_superuser = False
 
     def __str__(self):
         return f'{self.name}'
