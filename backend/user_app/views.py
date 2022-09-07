@@ -5,7 +5,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from .models import User
-from .serializer import UserModelSerializer
+from .serializer import UserModelSerializer, UserModelSerializerV2
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly, IsAdminUser, BasePermission, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly
 from rest_framework.views import APIView
@@ -32,10 +32,15 @@ class CustomPermission(BasePermission):
 
 class UserModelViewSet(ModelViewSet):
     # pagination_class = UserLimitOffsetPagination
-    #permission_classes = [IsAuthenticated]
-    permission_classes = [DjangoModelPermissions]
+    # permission_classes = [IsAuthenticated]
+    # permission_classes = [DjangoModelPermissions]
     serializer_class = UserModelSerializer
     queryset = User.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.version == '2.0':
+            return UserModelSerializerV2
+        return UserModelSerializer
 
     @action(detail=True, methods=['get'])
     def get_user_name(self, request, pk):
