@@ -21,6 +21,7 @@ from user_app.views import UserModelViewSet
 from TODO_app.views import *
 from drf_yasg.views import get_schema_view
 from drf_yasg.openapi import Info, License, Contact
+from graphene_django.views import GraphQLView
 
 schema_view = get_schema_view(
     Info(
@@ -55,5 +56,6 @@ urlpatterns = [
     path('project_api_get_class', ProjectApiView.as_view()),
     path('project_api_get_list', ProjectListAPIView.as_view()),
     path('swagger', schema_view.with_ui()),
+    path('graphql', GraphQLView.as_view(graphiql=True)),
     # re_path(r'swagger(?P<format>\.json|\.yaml)', schema_view.without_ui()),
 ]
