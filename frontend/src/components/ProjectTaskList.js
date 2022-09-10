@@ -30,6 +30,9 @@ const ProjectTaskList = ({tasks}) => {
             <th>
                 Text
             </th>
+            <th>
+                Actual
+            </th>
             {filteredTasks.map((task) => <TaskItem task={task} />)}
         </table>
     )

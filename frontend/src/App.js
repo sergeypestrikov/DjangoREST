@@ -6,7 +6,8 @@ import TaskList from './components/TaskList.js'
 import UserProjectList from './components/UserProjectList.js'
 import ProjectTaskList from './components/ProjectTaskList.js'
 import LoginForm from './components/LoginForm.js'
-import {HashRouter, BrowserRouter, Route, Routes, Link, Navigate, useLocation} from 'react-router-dom'
+import ProjectForm from './components/ProjectForm.js'
+import {HashRouter, BrowserRouter, Route, Routes, Link, Navigate, useLocation, useNavigate} from 'react-router-dom'
 
 
 const NotFound = () => {
@@ -26,8 +27,42 @@ class App extends React.Component {
             'users': [],
             'projects': [],
             'tasks': [],
-            'token': ''
+            'token': '',
+            'redirect': false
         }
+    }
+
+    deleteProject(projectId) {
+//        console.log(projectId)
+        let headers = this.getHeaders()
+
+        axios
+            .delete(`http://127.0.0.1:8000/api/projects/${projectId}`, {headers})
+            .then(response => {
+                this.setState({
+                    'projects': this.state.projects.filter((project) => project.id != projectId)
+                })
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    createProject(title, users) {
+//        console.log(title, users)
+        let headers = this.getHeaders()
+
+        axios
+            .post('http://127.0.0.1:8000/api/projects/', {'title': title, 'users': users}, {headers})
+            .then(response => {
+                this.setState({
+                    'redirect': '/projects'
+                }, this.getData)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
     }
 
     obtainAuthToken(login, password) {
@@ -40,8 +75,10 @@ class App extends React.Component {
                 const token = response.data.token
                 console.log('token:', token)
                 localStorage.setItem('token', token)
+
                 this.setState({
-                    'token': token
+                    'token': token,
+                    'redirect': '/'
                 }, this.getData)
              })
             .catch(error => console.log(error))
@@ -69,6 +106,10 @@ class App extends React.Component {
     }
 
     getData() {
+        this.setState({
+            'redirect': false
+        })
+
         let headers = this.getHeaders()
 
         axios
@@ -122,9 +163,11 @@ class App extends React.Component {
         return (
             <div>
                 <BrowserRouter>
+                    {this.state.redirect ? <Navigate to={this.state.redirect} /> : <div/>}
                     <nav>
                         <li> <Link to='/'>Users</Link> </li>
                         <li> <Link to='/projects'>Projects</Link> </li>
+                        <li> <Link to='/create_project'>Create Project</Link> </li>
                         <li> <Link to='/tasks'>Tasks</Link> </li>
                         <li>
                         {this.isAuth() ? <button onClick={() => this.logOut()}>Logout</button> : <Link to='/login'>Login</Link> }
@@ -132,7 +175,8 @@ class App extends React.Component {
                     </nav>
                     <Routes>
                         <Route exact path='/' element={<Navigate to='/users' />} />
-                        <Route exact path='/projects' element={<ProjectList projects={this.state.projects} users={this.state.users} />} />
+                        <Route exact path='/projects' element={<ProjectList projects={this.state.projects} users={this.state.users} deleteProject={(projectId) => this.deleteProject(projectId)} />} />
+                        <Route exact path='/create_project' element={<ProjectForm users={this.state.users} createProject={(title, users) => this.createProject(title, users)} />} />
                         <Route exact path='/tasks' element={<TaskList tasks={this.state.tasks} />} />
                         <Route exact path='/login' element={<LoginForm obtainAuthToken={(login, password) => this.obtainAuthToken(login, password)} />} />
                         <Route path='/users' >
