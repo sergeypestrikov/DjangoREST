@@ -14,7 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 from user_app.views import UserModelViewSet
@@ -57,5 +58,10 @@ urlpatterns = [
     path('project_api_get_list', ProjectListAPIView.as_view()),
     path('swagger', schema_view.with_ui()),
     path('graphql', GraphQLView.as_view(graphiql=True)),
+    path('', TemplateView.as_view(template_name='index.html')),
+    # path('projects', TemplateView.as_view(template_name='index.html')),
+    # path('users', TemplateView.as_view(template_name='index.html')),
+    # path('tasks', TemplateView.as_view(template_name='index.html')),
     # re_path(r'swagger(?P<format>\.json|\.yaml)', schema_view.without_ui()),
+    # path('', TemplateView.as_view(template_name='index.html')),
 ]
