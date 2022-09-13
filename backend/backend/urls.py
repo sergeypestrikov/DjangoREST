@@ -58,7 +58,10 @@ urlpatterns = [
     path('project_api_get_list', ProjectListAPIView.as_view()),
     path('swagger', schema_view.with_ui()),
     path('graphql', GraphQLView.as_view(graphiql=True)),
-    path('', TemplateView.as_view(template_name='index.html'))
+    path('', TemplateView.as_view(template_name='index.html')),
+    # path('projects', TemplateView.as_view(template_name='index.html')),
+    # path('users', TemplateView.as_view(template_name='index.html')),
+    # path('tasks', TemplateView.as_view(template_name='index.html')),
     # re_path(r'swagger(?P<format>\.json|\.yaml)', schema_view.without_ui()),
     # path('', TemplateView.as_view(template_name='index.html')),
 ]
