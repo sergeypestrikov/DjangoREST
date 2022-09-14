@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -21,9 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&mu+)b-hwi011sf&t9vk7k4%#i%#=fz5d54_(m6t8+6ffi=v6x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -124,8 +124,8 @@ REST_FRAMEWORK = {
     # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.AcceptHeaderVersioning'
 }
 
-if DEBUG:
-    REST_FRAMEWORK['DEFAULT_RENDERERS_CLASSES'].append('rest_framework.renderers.BrowsableAPIRenderer')
+# if DEBUG:
+#     REST_FRAMEWORK['DEFAULT_RENDERERS_CLASSES'].append('rest_framework.renderers.BrowsableAPIRenderer')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
